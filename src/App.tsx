@@ -7,12 +7,13 @@ function App() {
   return (
     <Grid
       templateAreas={{ base: `"nav" "main"`, md: `"nav nav" "aside main"` }}
+      templateColumns={{ base: "1fr", md: "200px 1fr" }}
     >
       <GridItem area="nav">
         <NavBar />
       </GridItem>
       <Show above="md">
-        <GridItem area="aside"><GenreList></GenreList></GridItem>
+        <GridItem area="aside" paddingX={4}><GenreList></GenreList></GridItem>
       </Show>
       <GridItem area="main">
         <GameGride />
