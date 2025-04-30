@@ -2,19 +2,20 @@ import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
 import { CanceledError } from "axios";
 
-export interface Genres {
+export interface Genre {
   id: number;
   name: string;
+  slug: string;
   image_background: string;
 }
 
 interface FetchGenrsResponse {
   count: number;
-  results: Genres[];
+  results: Genre[];
 }
 
 const useGenres = () => {
-  const [genres, setGenres] = useState<Genres[]>([]);
+  const [genres, setGenres] = useState<Genre[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
