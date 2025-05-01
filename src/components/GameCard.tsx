@@ -20,7 +20,7 @@ interface Props {
 const GameCard = ({ game }: Props) => {
   return (
     <Card borderRadius={10} overflow={"hidden"}>
-      <Image src={getCroppedImageUrl(game.background_image)}></Image>
+      <Image src={game.background_image == null ? "https://placehold.co/600x400" : getCroppedImageUrl(game.background_image)}></Image>
       <CardBody>
         <Heading fontSize="2xl">{game.name}</Heading>
         <HStack justifyContent="space-between">
