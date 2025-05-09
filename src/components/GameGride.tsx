@@ -1,28 +1,44 @@
-import { SimpleGrid, Text } from "@chakra-ui/react";
+import { HStack, SimpleGrid, Text } from "@chakra-ui/react";
 import useGames, { Platform } from "../hooks/useGames";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
 import { Genre } from "../hooks/useGenres";
 import PlatformsList from "./PlatformsList";
 import { useState } from "react";
+import OrderSelector from "./OrderSelector";
 
 interface Props {
   genre: Genre | null;
 }
 
-const GameGride = ({genre} : Props) => {
-  const [platformId, setPlatformId] = useState<number | null>(null);
+const GameGride = ({ genre }: Props) => {
+  const [platform, setPlatform] = useState<string | null>(null);
+  const [order, setOrder] = useState<string | null>(null);
 
-  const { games, error, isLoading } = useGames({ genre: genre?.slug, platformId: platformId});
+  const { games, error, isLoading } = useGames({
+    genre: genre?.slug,
+    platform: platform,
+    order: order,
+  });
   const skeletons = [1, 2, 3, 4, 5, 6];
 
-  const onSelectedPlatformId = (platform: number) => {
+  const onSelectedPlatform = (platform: string) => {
     console.log(platform);
-    
-    setPlatformId(platform); 
-  }
+
+    setPlatform(platform);
+  };
+
+  const onSelectOrder = (order: string) => {
+    console.log(order);
+
+    setOrder(order);
+  };
   return (
-    <><PlatformsList onSelectPlatformId={onSelectedPlatformId}/>
+    <>
+      <HStack padding="10px">
+        <PlatformsList onSelectPlatform={onSelectedPlatform} />
+        <OrderSelector onSelectOrder={onSelectOrder}/>
+      </HStack>
       {error && <Text>{error}</Text>}
       <SimpleGrid
         columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
@@ -33,9 +49,9 @@ const GameGride = ({genre} : Props) => {
           skeletons.map((skeleton) => (
             <GameCardSkeleton key={skeleton}></GameCardSkeleton>
           ))}
-        {games.map(game => 
+        {games.map((game) => (
           <GameCard key={game.id} game={game} />
-        )}
+        ))}
       </SimpleGrid>
     </>
   );

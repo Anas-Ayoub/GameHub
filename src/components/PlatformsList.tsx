@@ -3,15 +3,15 @@ import React from "react";
 import usePlatforms from "../hooks/usePlatforms";
 
 interface Props {
-  onSelectPlatformId: (platformId: number) => void;
+  onSelectPlatform: (platformId: string) => void;
 }
 
-const PlatformsList = ({onSelectPlatformId}:Props) => {
+const PlatformsList = ({onSelectPlatform}:Props) => {
   const { platforms, error, isLoading } = usePlatforms();
 
     if(error) return null;
   return (
-    <Select onChange={ (e) => onSelectPlatformId(parseInt(e.target.value))} padding="10px" width="200px" placeholder="Platforms">
+    <Select onChange={ (e) => onSelectPlatform(e.target.value)} width="200px" placeholder="Platforms">
       {platforms.map((p) => (
         <option key={p.id} value={p.id}>
           {p.name}

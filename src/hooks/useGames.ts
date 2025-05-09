@@ -23,10 +23,11 @@ interface FetchGameResponse {
 
 interface Props {
   genre?: String;
-  platformId? : number | null; 
+  platform? : string | null; 
+  order? : string | null; 
 }
 
-const useGames = ({genre, platformId}:Props) => {
+const useGames = ({order, genre, platform}:Props) => {
   const [games, setGames] = useState<Game[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -39,7 +40,8 @@ const useGames = ({genre, platformId}:Props) => {
     apiClient
       .get<FetchGameResponse>("/games", { signal: controller.signal, params: {
         genres: genre,
-        parent_platforms: platformId
+        parent_platforms: platform,
+        ordering: order
       }})
       .then((res) => {
         setGames(res.data.results);
@@ -54,7 +56,7 @@ const useGames = ({genre, platformId}:Props) => {
     return () => {
       controller.abort();
     };
-  }, [genre, platformId]);
+  }, [genre, platform, order]);
 
   return { games, error, isLoading };
 };
