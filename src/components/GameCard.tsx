@@ -22,13 +22,14 @@ const GameCard = ({ game }: Props) => {
     <Card borderRadius={10} overflow={"hidden"}>
       <Image src={game.background_image == null ? "https://placehold.co/600x400" : getCroppedImageUrl(game.background_image)}></Image>
       <CardBody>
-        <Heading fontSize="2xl">{game.name}</Heading>
-        <HStack justifyContent="space-between">
+      <HStack marginBottom="6px" justifyContent="space-between">
           <PlatformsIconsList
             platforms={game.parent_platforms.map((p) => p.platform)}
           ></PlatformsIconsList>
           <CriticScore score={game.metacritic}></CriticScore>
         </HStack>
+        <Heading fontSize="2xl">{game.name}</Heading>
+
       </CardBody>
     </Card>
   );
