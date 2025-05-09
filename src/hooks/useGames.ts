@@ -23,7 +23,7 @@ interface FetchGameResponse {
 
 interface Props {
   genre?: String;
-  platform? : string | null; 
+  platform? : Platform | null; 
   order? : string | null; 
   searchQuery? : string | null; 
 }
@@ -41,7 +41,7 @@ const useGames = ({searchQuery, order, genre, platform}:Props) => {
     apiClient
       .get<FetchGameResponse>("/games", { signal: controller.signal, params: {
         genres: genre,
-        parent_platforms: platform,
+        parent_platforms: platform?.id,
         ordering: order,
         search: searchQuery,
       }})

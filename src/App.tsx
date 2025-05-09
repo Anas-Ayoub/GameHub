@@ -23,11 +23,12 @@ function App() {
   return (
     <Grid
       templateAreas={{ base: `"nav" "main"`, md: `"nav nav" "aside main"` }}
-      templateColumns={{ base: "1fr", md: "300px 1fr" }}
+      templateColumns={{ base: "1fr", md: "200px 1fr" }}
     >
       <GridItem area="nav">
         <NavBar onSearch={onSearchQuery}/>
       </GridItem>
+      
       <Show above="md">
         <GridItem area="aside" paddingX={4}><GenreList selectedGenre={seletedGenre} onSelectedGenre={onSelectedGenre}></GenreList></GridItem>
       </Show>

@@ -13,7 +13,7 @@ interface Props {
 }
 
 const GameGride = ({searchQuery, genre }: Props) => {
-  const [platform, setPlatform] = useState<string | null>(null);
+  const [platform, setPlatform] = useState<Platform | null>(null);
   const [order, setOrder] = useState<string | null>(null);
   
 
@@ -25,8 +25,11 @@ const GameGride = ({searchQuery, genre }: Props) => {
   });
   const skeletons = [1, 2, 3, 4, 5, 6];
 
-  const onSelectedPlatform = (platform: string) => {
-    console.log(platform);
+  const onSelectedPlatform = (platform: Platform | null) => {
+    console.log("id: "+platform?.id);
+    console.log("platform: "+platform?.name);
+    console.log("slig: "+platform?.slug);
+    
 
     setPlatform(platform);
   };
@@ -40,6 +43,8 @@ const GameGride = ({searchQuery, genre }: Props) => {
 
   return (
     <>
+      <Text fontSize="6xl" fontWeight="bold" padding="10px">
+       {genre?.name} {platform?.name} Games</Text>
       <HStack padding="10px">
         <PlatformsList onSelectPlatform={onSelectedPlatform} />
         <OrderSelector onSelectOrder={onSelectOrder}/>
