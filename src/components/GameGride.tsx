@@ -9,16 +9,19 @@ import OrderSelector from "./OrderSelector";
 
 interface Props {
   genre: Genre | null;
+  searchQuery: string;
 }
 
-const GameGride = ({ genre }: Props) => {
+const GameGride = ({searchQuery, genre }: Props) => {
   const [platform, setPlatform] = useState<string | null>(null);
   const [order, setOrder] = useState<string | null>(null);
+  
 
   const { games, error, isLoading } = useGames({
     genre: genre?.slug,
     platform: platform,
     order: order,
+    searchQuery: searchQuery,
   });
   const skeletons = [1, 2, 3, 4, 5, 6];
 
@@ -33,6 +36,8 @@ const GameGride = ({ genre }: Props) => {
 
     setOrder(order);
   };
+
+
   return (
     <>
       <HStack padding="10px">

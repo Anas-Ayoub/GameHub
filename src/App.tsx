@@ -9,10 +9,16 @@ import { Platform } from "./hooks/useGames";
 function App() {
 
   const [seletedGenre, setSelectedGenre] = useState<Genre | null>(null);
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   const onSelectedGenre = (genre: Genre) => {
     setSelectedGenre(genre);
   }
+  const onSearchQuery = (query: string) => {
+    console.log(query);
+
+    setSearchQuery(query);
+  };
 
   return (
     <Grid
@@ -20,13 +26,13 @@ function App() {
       templateColumns={{ base: "1fr", md: "300px 1fr" }}
     >
       <GridItem area="nav">
-        <NavBar />
+        <NavBar onSearch={onSearchQuery}/>
       </GridItem>
       <Show above="md">
         <GridItem area="aside" paddingX={4}><GenreList selectedGenre={seletedGenre} onSelectedGenre={onSelectedGenre}></GenreList></GridItem>
       </Show>
       <GridItem area="main">
-        <GameGride genre={seletedGenre}/>
+        <GameGride searchQuery={searchQuery} genre={seletedGenre}/>
       </GridItem>
     </Grid>
   );

@@ -25,9 +25,10 @@ interface Props {
   genre?: String;
   platform? : string | null; 
   order? : string | null; 
+  searchQuery? : string | null; 
 }
 
-const useGames = ({order, genre, platform}:Props) => {
+const useGames = ({searchQuery, order, genre, platform}:Props) => {
   const [games, setGames] = useState<Game[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -41,7 +42,8 @@ const useGames = ({order, genre, platform}:Props) => {
       .get<FetchGameResponse>("/games", { signal: controller.signal, params: {
         genres: genre,
         parent_platforms: platform,
-        ordering: order
+        ordering: order,
+        search: searchQuery,
       }})
       .then((res) => {
         setGames(res.data.results);
@@ -56,7 +58,7 @@ const useGames = ({order, genre, platform}:Props) => {
     return () => {
       controller.abort();
     };
-  }, [genre, platform, order]);
+  }, [genre, platform, order, searchQuery]);
 
   return { games, error, isLoading };
 };
